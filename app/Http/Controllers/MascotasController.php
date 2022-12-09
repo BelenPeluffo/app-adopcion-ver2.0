@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Mascota;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MascotasController extends Controller
 {
@@ -25,7 +26,10 @@ class MascotasController extends Controller
         //
         //$mascotasDB = DB::table('mascota')->get();
         $mascotasDB=Mascota::get();
-        return view('mascota.index',['mascotas'=>$mascotasDB]);
+        $user=Auth::user();
+        return view('mascota.index',[
+            'mascotas'=>$mascotasDB,
+            'user'=>$user]);
     }
 
     /**

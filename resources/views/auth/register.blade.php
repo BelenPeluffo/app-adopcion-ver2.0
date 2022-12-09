@@ -10,6 +10,7 @@
             //QUIZÁS CON LOS BOTONES DEL HEADER YA NO SEA NECESARIO ESTE SCRIPT...
             $(document).ready(function(){
                 $('.particular').hide();
+                $('#darEnAdopcion').addClass('categoria');
             })
         </script>
     @endonce
@@ -43,7 +44,7 @@
                 <form class="form" method="POST" action="{{route('register')}}">
                     @csrf
                     <div class="row">
-                        <div class="col">
+                        <div class="col insertar">
                             <div class="form-group">
                                 <label class="form-label">Nombre</label> 
                                 <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es tu nombre?" required autofocus><br>
@@ -52,28 +53,12 @@
                             <div class="form-group adopcion">
                                 <label>Categoría</label>
                                 <select name="categoria" id="categoria" class="form-control">
-                                    <option value="opcion" selected>Elegí una opción</option>
+                                    <option selected>Elegí una opción</option>
                                     <option value="particular">Particular</option>
                                     <option value="refugio">Refugio</option>
                                 </select>
                             </div>
-                            <!--PARA ADOPTAR / "PARTICULAR"-->
 
-                            <div class="form-group particular">
-                                <label class="etiqueta">¿Buscás adoptar de forma transitoria o permanente?</label>
-                                <select name="categoria" id="particular" class="form-control">
-                                    <option value="transitorio">Transitoria</option>
-                                    <option value="permanente">Permanente</option>
-                                </select>
-                            </div>
-                            <div class="form-group particular">
-                                <label class="etiqueta">¿Cuáles son las condiciones de tu vivienda?</label>
-                                <select name="tipoDeVivienda" id="vivienda" class="form-control">
-                                    <option value="con patio">Con patio</option>
-                                    <option value="sin patio">Sin patio</option>
-                                </select>
-                            </div>
-                            <!--/"PARTICULAR"-->
                         </div>
                         <div class="col">
                             <div class="form-group">

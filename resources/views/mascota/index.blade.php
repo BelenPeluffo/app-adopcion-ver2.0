@@ -40,10 +40,17 @@ Mascotas en Adopción
                 </p>
                 <div class="collapse" id="{{$mascota->nombre}}">
                     <div class="table">
+                        @if(isset($user))
+                            {{ $user->categoria }}<br>
+                        @endif
                         {{ $mascota->edad}}<br>
                         {{ $mascota->energía}}<br>
                         @auth
-                        <a href="{{route('mascotas.edit',$mascota)}}" type="button" class="btn btn-secondary">Editar</a>
+                            @if($mascota->dueñx==$user->id && ($user->categoria=='particular' or $user->categoria=='refugio'))
+                                <a href="{{route('mascotas.edit',$mascota)}}" type="button" class="btn btn-secondary">Editar</a>
+                            @elseif ($user->categoria=='transitorio' or $user->categoria=='permanente')
+                                <a href="" type="button" class="btn btn-secondary">Adoptar</a>
+                            @endif
                         @endauth
                     </div>
                 </div>

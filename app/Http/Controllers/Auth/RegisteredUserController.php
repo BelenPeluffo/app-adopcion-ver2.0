@@ -37,7 +37,7 @@ class RegisteredUserController extends Controller
         $request['contacto']=(int)$request['contacto'];
 
         $request->validate([
-            'nombre' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'alpha','max:255'],
             'categoria' => ['required','string','max:30'],
             'tipoDeVivienda' => ['string'],
             'numeroDeTelefono' => ['required','numeric'],

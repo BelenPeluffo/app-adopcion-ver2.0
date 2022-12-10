@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('nombre');
             $table->enum('raza',array('gatx','perrx'));
             $table->integer('edad')->nullable();
-            $table->enum('sexo',array('macho','hembra'));
+            $table->enum('sexo',array('macho','hembra'))->nullable();
             $table->enum('tamaño',array('pequeño','mediano','grande'));
             $table->integer('peso')->nullable();
             $table->enum('pelaje',array('corto','largo'));

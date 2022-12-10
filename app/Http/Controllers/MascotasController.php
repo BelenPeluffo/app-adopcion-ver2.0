@@ -51,6 +51,12 @@ class MascotasController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate([
+            'nombre' => ['required','string','alpha','max:255'],
+            'edad' => ['nullable','numeric'],
+            'peso' => ['nullable','numeric']
+        ]);
         
         //genero el nuevo registro y redirijo a .index:
         //echo($request);       //DEBUG

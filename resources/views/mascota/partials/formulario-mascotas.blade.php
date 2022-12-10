@@ -16,10 +16,15 @@
 
                 <div class="form-group">
                     <label class="form-label">Nombre</label> 
-                    <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es su nombre?" 
+                    <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es su nombre?"
                         @if(isset($mascota))
                             value="{{$mascota->nombre}}"
-                        @endif><br>
+                        @else
+                            value="{{old('nombre')}}"
+                        @endif>
+                        @error('nombre')
+                            <small>{{$message}}</small>
+                        @enderror
                 </div>
                 <div class="form-group">
                     <label class="label">Raza</label><br>
@@ -45,7 +50,12 @@
                     <input name="edad" type="number" class="form-control" placeholder="¿Cuántos años tiene?"
                         @if(isset($mascota))
                             value="{{$mascota->edad}}"
-                        @endif><br>
+                        @else
+                            value="{{old('edad')}}"
+                        @endif>
+                        @error('edad')
+                            <small>{{$message}}</small>
+                        @enderror
                 </div>
                 <div class="form-group">
                     <label class="label">Sexo</label><br>
@@ -91,7 +101,9 @@
                     <input name="peso" type="number" class="form-control" aria-describedby="TamanioHelp" placeholder="¿Cuánto pesa, más o menos?"
                         @if(isset($mascota))
                             value="{{$mascota->peso}}"
-                        @endif><br>
+                        @else
+                            value="{{old('peso')}}"
+                        @endif>
                     <small id="tamanioHelp" class="form-text text-muted">Si bien lo ideal es poner un peso aproximado, si no lo sabés no es necesario que lo pongas.</small>
                 </div>
                 <div class="form-group">

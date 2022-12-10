@@ -43,13 +43,19 @@ Mascotas en Adopción
                         @if(isset($user))
                             {{ $user->categoria }}<br>
                         @endif
+                        {{ $mascota->id}}<br>
                         {{ $mascota->edad}}<br>
                         {{ $mascota->energía}}<br>
                         @auth
-                            @if($mascota->dueñx==$user->id && ($user->categoria=='particular' or $user->categoria=='refugio'))
+                            @if($mascota->dueñx==$user->id)
                                 <a href="{{route('mascotas.edit',$mascota)}}" type="button" class="btn btn-secondary">Editar</a>
                             @elseif ($user->categoria=='transitorio' or $user->categoria=='permanente')
-                                <a href="" type="button" class="btn btn-secondary">Adoptar</a>
+                                <form method="POST" action="{{route('solicitudes.store',$mascota)}}">
+                                    @csrf
+                                    <input name="mascota" type="number" value="{{$mascota->id}}" hidden>
+                                    <input name="dueñx" type="number" value="{{$mascota->dueñx}}" hidden>
+                                    <button type="submit" class="btn btn-secondary">Adoptar</button>
+                                </form>
                             @endif
                         @endauth
                     </div>

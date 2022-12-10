@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Mascota;
+use App\Models\Solicitud;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class SolicitudesController extends Controller
@@ -14,8 +17,34 @@ class SolicitudesController extends Controller
     public function index()
     {
         //POR EL MOMENTO, TENEMOS ÉSTO:
-        $solicitudes=Solicitud::class;
-        return view('solicitudes.index',['solicitudes' => $solicitudes]);
+
+        $usuarix=auth()->user()->id;
+        
+        $solicitudesDueñx = Solicitud::select('users.nombre','solicitudes.idDueñx','mascotas.nombre')
+                            ->join('users', function ($join) {
+                                $join->on('users.id','=','solicitudes.idDueñx')
+                                    ->where('users.id','=',auth()->user()->id);
+                            })
+                            ->join('mascotas', function($join) {
+                                $join->on('mascotas.id','=','solicitudes.idMascota');
+                            })
+                            ->get();
+        
+        $solicitudesPostulante= Solicitud::select('users.nombre','solicitudes.idDueñx','mascotas.nombre',)
+                            ->join('users',function ($join) {
+                                $join->on('users.id','=','solicitudes.idPostulante')
+                                    ->where('users.id','=',auth()->user()->id);
+                            })
+                            ->join('mascotas', function($join) {
+                                $join->on('mascotas.id','=','solicitudes.idMascota');
+                            })
+                            ->get();
+
+        return view('solicitud.index',[
+            'dueñx' => $solicitudesDueñx,
+            'postulante' => $solicitudesPostulante,
+            'usuario' => [auth()->user()->email,$usuarix]       //debug
+        ]);
     }
 
     /**
@@ -37,6 +66,15 @@ class SolicitudesController extends Controller
     public function store(Request $request)
     {
         //
+        $nuevaSolicitud=new Solicitud;
+        $nuevaSolicitud->idMascota=$request->input('mascota');
+        $nuevaSolicitud->idPostulante=auth()->user()->id;
+        $nuevaSolicitud->idDueñx=$request->input('dueñx');
+
+        $nuevaSolicitud->save();
+
+        return redirect(route('solicitudes.index'));
+
     }
 
     /**

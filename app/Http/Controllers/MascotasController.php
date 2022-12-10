@@ -74,11 +74,6 @@ class MascotasController extends Controller
 
         $nuevaMascota->save();
         
-        //return redirect();
-        /*
-        $mascotasDB=Mascota::get();
-        return view('mascota.index',['mascotas'=>$mascotasDB]);
-        */
         return redirect()->route('mascotas.index');
     }
 

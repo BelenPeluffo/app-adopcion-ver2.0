@@ -13,6 +13,30 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
+     * Obtené las mascotas relacionadas al user.
+     */
+    public function mascotas()
+    {
+        return $this->hasMany(Mascota::class,'dueñx');
+    }
+
+    /**
+     * Obtené las solicitudes relacionadas al user.
+     */
+    public function solicitudesDueñx()
+    {
+        return $this->hasMany(Solicitud::class,'idDueñx');
+    }
+
+    /**
+     * Obtené las solicitudes relacionadas al user.
+     */
+    public function solicitudesPostulante()
+    {
+        return $this->hasMany(Solicitud::class,'idPostulante');
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>

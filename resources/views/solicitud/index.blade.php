@@ -20,27 +20,64 @@ Bandeja de Solicitudes
 @endsection
 
 @section('contenido')
-    @empty($dueñx && $postulante)
-        No tenés solicitudes pendientes.<br><br>
-    @endempty
+<div class="container">
+    <div class="row">
+        <div class="col">
+            @empty($dueñx && $postulante)
+                <h3>No tenés solicitudes pendientes.</h3>
+            @endempty
+        </div>
+    </div>
 
-    ¿Quién soy yo? {{$usuario[0]}} y mi id es {{$usuario[1]}}<br>
+    <!--¿Quién soy yo? usuario[0]}} y mi id es usuario[1]}}<br>-->
+    <div class="row">
+        @if(isset($dueñx))
+            <div class="col">
+                <h3>Es dueñx.</h3>
+                @forelse ($dueñx as $enAdopcion)
+                    <div class="row px-3 mb-2 border">
+                        <div class="col-2">
+                            <!--{$enAdopcion}}-->
+                            {{$enAdopcion->nombre}}
+                        </div>
+                        <div class="col">
+                            Sexo: {{$enAdopcion->sexo}}<br>
+                            Edad: {{$enAdopcion->edad}}<br>
+                        </div>
+                        <div class="col">
+                            Acá irían los postulantes.
+                        </div>
+                    </div>
+                @empty
+                    <div class="row">
+                        <div class="col">
+                            No tenés ninguna mascota solicitada por el momento.
+                        </div>
+                    </div>
+                @endforelse
+            </div>
+        @endif
+    </div>
 
-    @if(isset($dueñx))
-        Es dueñx.<br>
-        @forelse ($dueñx as $enAdopcion)
-            {{$enAdopcion}}<br>
-        @empty
-            Ninguna de tus mascotas está solicitada por el momento.<br>
-        @endforelse
-    @endif
-
-    @if(isset($postulante))
-        Es postulante.<br>
-        @forelse ($postulante as $solicitud)
-            {{$solicitud}}<br>
-        @empty
-            No has solicitado nunguna mascota hasta el momento.
-        @endforelse
-    @endif
+    <div class="row">
+        @if(isset($postulante))
+            <div class="col">
+                <h3>Es postulante.</h3>
+                @forelse ($postulante as $solicitud)
+                    <div class="row">
+                        <div class="col">
+                            {{$solicitud}}
+                        </div>
+                    </div>
+                @empty
+                    <div class="row">
+                        <div class="col">
+                            No has solicitado nunguna mascota hasta el momento.
+                        </div>
+                    </div>
+                @endforelse
+            </div>
+        @endif
+    </div>
+</div>
 @endsection

@@ -37,15 +37,20 @@ Bandeja de Solicitudes
                 @forelse ($dueñx as $enAdopcion)
                     <div class="row px-3 mb-2 border">
                         <div class="col-2">
-                            <!--{$enAdopcion}}-->
                             {{$enAdopcion->nombre}}
                         </div>
                         <div class="col">
                             Sexo: {{$enAdopcion->sexo}}<br>
                             Edad: {{$enAdopcion->edad}}<br>
                         </div>
-                        <div class="col">
-                            Acá irían los postulantes.
+                        <div class="col text-center">
+                            <h5>User solicitante</h5>
+                            @foreach ($postulantes as $userPostulante)
+                                @if ($userPostulante->id == $enAdopcion->idPostulante)
+                                    {{$userPostulante->nombre}}
+                                    @break
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 @empty
@@ -64,9 +69,22 @@ Bandeja de Solicitudes
             <div class="col">
                 <h3>Es postulante.</h3>
                 @forelse ($postulante as $solicitud)
-                    <div class="row">
+                    <div class="row px-3 mb-2 border">
+                        <div class="col-2">
+                            {{$solicitud->nombre}}
+                        </div>
                         <div class="col">
-                            {{$solicitud}}
+                            Sexo: {{$solicitud->sexo}}<br>
+                            Edad: {{$solicitud->edad}}<br>
+                        </div>
+                        <div class="col text-center">
+                            <h5>User dueñx</h5>
+                            @foreach ($dueñxs as $userDueñx)
+                                @if ($userDueñx->id == $solicitud->idDueñx)
+                                    {{$userDueñx->nombre}}
+                                    @break
+                                @endif
+                            @endforeach
                         </div>
                     </div>
                 @empty

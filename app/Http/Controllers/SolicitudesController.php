@@ -20,7 +20,7 @@ class SolicitudesController extends Controller
 
         $usuarix=auth()->user()->id;
         
-        $solicitudesDueñx = Solicitud::select('users.nombre','mascotas.*')
+        $solicitudesDueñx = Solicitud::select('users.nombre','solicitudes.idPostulante','mascotas.*')
                             ->join('users', function ($join) {
                                 $join->on('users.id','=','solicitudes.idDueñx')
                                     ->where('users.id','=',auth()->user()->id);
@@ -29,6 +29,12 @@ class SolicitudesController extends Controller
                                 $join->on('mascotas.id','=','solicitudes.idMascota');
                             })
                             ->get();
+        
+        $usersPostulantes = [];
+        
+        foreach ($solicitudesDueñx as $solicitud) {
+            array_push($usersPostulantes, User::find($solicitud->idPostulante));
+        }
         
         $solicitudesPostulante= Solicitud::select('users.nombre','solicitudes.idDueñx','mascotas.*',)
                             ->join('users',function ($join) {
@@ -39,10 +45,18 @@ class SolicitudesController extends Controller
                                 $join->on('mascotas.id','=','solicitudes.idMascota');
                             })
                             ->get();
+        
+        $usersDueñxs = [];
+
+        foreach ($solicitudesPostulante as $solicitud) {
+            array_push($usersDueñxs, User::find($solicitud->idDueñx));
+        }
 
         return view('solicitud.index',[
             'dueñx' => $solicitudesDueñx,
-            'postulante' => $solicitudesPostulante
+            'postulante' => $solicitudesPostulante,
+            'postulantes' => $usersPostulantes,
+            'dueñxs' => $usersDueñxs
             //'usuario' => [auth()->user()->email,$usuarix]       //debug
         ]);
     }

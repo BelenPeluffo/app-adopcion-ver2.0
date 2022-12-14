@@ -20,7 +20,7 @@ class SolicitudesController extends Controller
 
         $usuarix=auth()->user()->id;
         
-        $solicitudesDueñx = Solicitud::select('users.nombre','solicitudes.idPostulante','mascotas.*')
+        $solicitudesDueñx = Solicitud::select('users.nombre','solicitudes.idPostulante','mascotas.*','solicitudes.id')
                             ->join('users', function ($join) {
                                 $join->on('users.id','=','solicitudes.idDueñx')
                                     ->where('users.id','=',auth()->user()->id);
@@ -36,7 +36,7 @@ class SolicitudesController extends Controller
             array_push($usersPostulantes, User::find($solicitud->idPostulante));
         }
         
-        $solicitudesPostulante= Solicitud::select('users.nombre','solicitudes.idDueñx','mascotas.*',)
+        $solicitudesPostulante= Solicitud::select('users.nombre','solicitudes.idDueñx','mascotas.*','solicitudes.id')
                             ->join('users',function ($join) {
                                 $join->on('users.id','=','solicitudes.idPostulante')
                                     ->where('users.id','=',auth()->user()->id);
@@ -134,5 +134,11 @@ class SolicitudesController extends Controller
     public function destroy($id)
     {
         //
+        //echo('estamos bien');       //DEBUG
+
+        $solicitudAEliminar = Solicitud::find($id);
+        $solicitudAEliminar->delete();
+
+        return view('mascotas.index');
     }
 }

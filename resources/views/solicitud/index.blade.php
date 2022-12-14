@@ -29,11 +29,11 @@ Bandeja de Solicitudes
         </div>
     </div>
 
-    <!--¿Quién soy yo? usuario[0]}} y mi id es usuario[1]}}<br>-->
+    <!--SECCIÓN USER COMO DUEÑX DE MASCOTA-->
     <div class="row">
         @if(isset($dueñx))
             <div class="col">
-                <h3>Es dueñx.</h3>
+                <h3>Tus mascotas</h3>
                 @forelse ($dueñx as $enAdopcion)
                     <div class="row px-3 mb-2 border">
                         <div class="col-2">
@@ -47,10 +47,18 @@ Bandeja de Solicitudes
                             <h5>User solicitante</h5>
                             @foreach ($postulantes as $userPostulante)
                                 @if ($userPostulante->id == $enAdopcion->idPostulante)
-                                    {{$userPostulante->nombre}}
+                                    {{$userPostulante->nombre}}<br>
+                                    {{$userPostulante->numeroDeTelefono}}<br>
+                                    {{$userPostulante->email}}
                                     @break
                                 @endif
                             @endforeach
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <form method="POST" action="{{route('solicitudes.destroy',$enAdopcion->id)}}">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn">Aceptar</button>
+                            </form>
                         </div>
                     </div>
                 @empty
@@ -64,10 +72,11 @@ Bandeja de Solicitudes
         @endif
     </div>
 
+    <!--SECCIÓN USER COMO POSTULANTE DE ADOPCIÓN-->
     <div class="row">
         @if(isset($postulante))
             <div class="col">
-                <h3>Es postulante.</h3>
+                <h3>Tus pedidos de adopción</h3>
                 @forelse ($postulante as $solicitud)
                     <div class="row px-3 mb-2 border">
                         <div class="col-2">
@@ -85,6 +94,12 @@ Bandeja de Solicitudes
                                     @break
                                 @endif
                             @endforeach
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <form method="post" action="{{route('solicitudes.destroy',$solicitud->id)}}">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn">Cancelar</button>
+                            </form>
                         </div>
                     </div>
                 @empty

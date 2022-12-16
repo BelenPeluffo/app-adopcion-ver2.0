@@ -14,9 +14,6 @@
                     <a class="btn btn-primary" href="{{route('solicitudes.index')}}">Solicitudes</a>
                 </li>
                 <li class="nav-item active mx-1">
-                    <a class="btn btn-primary" href="#">Entrevistas</a>
-                </li>
-                <li class="nav-item active mx-1">
                     <!--lógica anterior:
                     <a class="nav-link btn btn-success" href="">Cerrar Sesión</a>
                     -->

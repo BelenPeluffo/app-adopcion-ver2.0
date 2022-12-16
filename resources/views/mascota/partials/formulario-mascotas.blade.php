@@ -13,7 +13,8 @@
                 @else
                     @csrf
                 @endif
-
+                
+                <!--CAMPO NOMBRE-->
                 <div class="form-group">
                     <label class="form-label">Nombre</label> 
                     <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es su nombre?"
@@ -26,6 +27,8 @@
                             <small>{{$message}}</small>
                         @enderror
                 </div>
+
+                <!--CAMPO RAZA-->
                 <div class="form-group">
                     <label class="label">Raza</label><br>
                     <div class="text-center">
@@ -33,6 +36,8 @@
                             <input name="raza" type="radio" value="gatx" class="form-check-input"
                                 @if(isset($mascota))
                                     @checked(old('raza',$mascota->raza)=='gatx')
+                                @else
+                                    {{old('raza')=="gatx" ? 'checked' :''}}
                                 @endif> 
                             <label class="form-check-label">Gatx</label>
                         </div>
@@ -40,11 +45,18 @@
                             <input name="raza" type="radio" value="perrx" class="form-check-input"
                                 @if(isset($mascota))
                                     @checked(old('raza',$mascota->raza)=='perrx')
+                                @else
+                                    {{old('raza')=="perrx" ? 'checked' :''}}
                                 @endif>
                             <label class="form-check-label">Perrx</label>
                         </div>
+                        @error('raza')
+                            <small>{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
+
+                <!--CAMPO EDAD-->
                 <div class="form-group">
                     <label>Edad</label>
                     <input name="edad" type="number" class="form-control" placeholder="¿Cuántos años tiene?"
@@ -57,6 +69,8 @@
                             <small>{{$message}}</small>
                         @enderror
                 </div>
+
+                <!--CAMPO SEXO-->
                 <div class="form-group">
                     <label class="label">Sexo</label><br>
                     <div class="text-center">
@@ -74,8 +88,13 @@
                                 @endif>
                             <label class="form-check-label">Macho</label>
                         </div>
+                        @error('sexo')
+                            <small>{{$message}}</small>
+                        @enderror
                     </div>
                 </div>
+
+                <!--CAMPO TAMAÑO-->
                 <div class="form-group">
                     <label>Tamaño</label> 
                     <select name="tamanio" id="tamanio" class="form-control">
@@ -94,8 +113,13 @@
                                 @selected(old('tamaño',$mascota->tamaño) == 'grande')
                             @endif
                             value="grande">Grande</option>
-                    </select><br>
+                    </select>
+                    @error('tamanio')
+                        <small>{{$message}}</small>
+                    @enderror
                 </div>
+
+                <!--CAMPO PESO-->
                 <div class="form-group">
                     <label>Peso</label> 
                     <input name="peso" type="number" class="form-control" aria-describedby="TamanioHelp" placeholder="¿Cuánto pesa, más o menos?"
@@ -105,7 +129,12 @@
                             value="{{old('peso')}}"
                         @endif>
                     <small id="tamanioHelp" class="form-text text-muted">Si bien lo ideal es poner un peso aproximado, si no lo sabés no es necesario que lo pongas.</small>
+                    @error('peso')
+                        <small>{{$message}}</small>
+                    @enderror
                 </div>
+
+                <!--CAMPO PELAJE-->
                 <div class="form-group">
                     <label>Pelaje</label>
                     <select name="pelaje" class="form-control">
@@ -119,8 +148,13 @@
                                 @selected(old('pelaje',$mascota->pelaje) == 'largo')
                             @endif
                             value="largo">Largo</option>
-                    </select><br>
+                    </select>
+                    @error('pelaje')
+                        <small>{{$message}}</small>
+                    @enderror
                 </div>
+
+                <!--CAMPO ENERGÍA-->
                 <div class="form-group">
                     <label>Energía</label> 
                     <select name="energia" class="form-control">
@@ -139,13 +173,24 @@
                                 @selected(old('energía',$mascota->energía)=='energéticx')
                             @endif
                             value="energeticx">Energéticx</option>
-                    </select><br>
+                    </select>
+                    @error('energia')
+                        <small>{{$message}}</small>
+                    @enderror
                 </div>
+
+                <!--CAMPO FOTO-->
                 <div class="form-group">
                     <label>Foto</label>
                     <input type="file" class="form-control-file">
                 </div>
-                <button type="submit" class="btn btn-primary">Subir el perfil</button>
+                <button type="submit" class="btn btn-primary">
+                    @if(isset($mascota))
+                        Actualizá su perfil
+                    @else
+                        Subí su perfil
+                    @endif
+                </button>
             </form>
         </div>
     </div>

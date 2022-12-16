@@ -45,7 +45,8 @@
                         <div class="col insertar">
                             <div class="form-group">
                                 <label class="form-label">Nombre</label> 
-                                <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es tu nombre?" autofocus>
+                                <input name="nombre" type="text" class="form-control" placeholder="¿Cuál es tu nombre?" 
+                                    value="{{old('nombre')}}" autofocus>
                                 @error('nombre')
                                     <small>{{$message}}</small>
                                 @enderror
@@ -55,8 +56,16 @@
                                 <label>Categoría</label>
                                 <select name="categoria" id="categoria" class="form-control">
                                     <option selected>Elegí una opción</option>
-                                    <option value="particular">Particular</option>
-                                    <option value="refugio">Refugio</option>
+                                    <option value="particular"
+                                        @if(old('categoria')=='particular')
+                                        selected
+                                        @endif>
+                                        Particular</option>
+                                    <option value="refugio"
+                                        @if(old('categoria')=='refugio')
+                                        selected
+                                        @endif>
+                                        Refugio</option>
                                 </select>
                             </div>
 

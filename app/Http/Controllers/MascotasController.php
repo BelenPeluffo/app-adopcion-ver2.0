@@ -54,6 +54,7 @@ class MascotasController extends Controller
 
         $request->validate([
             'nombre' => ['required','string','alpha','max:255'],
+            'raza' => ['required'],
             'edad' => ['nullable','numeric'],
             'peso' => ['nullable','numeric']
         ]);
@@ -115,6 +116,14 @@ class MascotasController extends Controller
     public function update(Request $request, $id)
     {
         //QUÉ HAGO CON LOS DATOS NUEVOS?
+
+        $request->validate([
+            'nombre' => ['required','string','alpha','max:255'],
+            'raza' => ['required'],
+            'edad' => ['nullable','numeric'],
+            'peso' => ['nullable','numeric']
+        ]);
+
         $Mascota= Mascota::find($id);
         $Mascota->nombre = $request->input('nombre');
         $Mascota->edad = $request->input('edad');
@@ -123,8 +132,7 @@ class MascotasController extends Controller
         $Mascota->peso = $request->input('peso');
         $Mascota->pelaje = $request->input('pelaje');
         $Mascota->energía = $request->input('energia');
-        //Ésto es prematuro, deberá deducirse de quién esté loggeadx:
-        $Mascota->dueñx = 36734473;
+        $Mascota->dueñx = auth()->user()->id;
         //En un PRIMER MOMENTO, EL ESTADO INICIAL ES "DISPONIBLE":
         $Mascota->estado = "disponible";
 

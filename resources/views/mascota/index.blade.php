@@ -22,6 +22,7 @@ Mascotas en Adopción
 
 @section('contenido')
 
+    <!--FILTRO-->
     <div class="container-fluid">
         <div class="row mt-5">
             <div class="col text-center">
@@ -29,6 +30,8 @@ Mascotas en Adopción
             </div>
         </div>
     </div>
+
+    <!--MASCOTAS DISPONIBLES-->
     <div class="container">
         <div class="row">
             @foreach ($mascotas as $mascota)
@@ -38,27 +41,50 @@ Mascotas en Adopción
                 <p>
                     <button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#{{$mascota->nombre}}">+</button>
                 </p>
-                <div class="collapse" id="{{$mascota->nombre}}">
-                    <div class="table">
+                <div class="collapse my-2" id="{{$mascota->nombre}}">
+                    <table class="table">
                         @if(isset($user))
-                            {{ $user->categoria }}<br>
+                            <!--user->categoria }}<br>-->
                         @endif
-                        {{ $mascota->id}}<br>
-                        {{ $mascota->edad}}<br>
-                        {{ $mascota->energía}}<br>
-                        @auth
-                            @if($mascota->dueñx==$user->id)
-                                <a href="{{route('mascotas.edit',$mascota)}}" type="button" class="btn btn-secondary">Editar</a>
-                            @elseif ($user->categoria=='transitorio' or $user->categoria=='permanente')
-                                <form method="POST" action="{{route('solicitudes.store',$mascota)}}">
-                                    @csrf
-                                    <input name="mascota" type="number" value="{{$mascota->id}}" hidden>
-                                    <input name="dueñx" type="number" value="{{$mascota->dueñx}}" hidden>
-                                    <button type="submit" class="btn btn-secondary">Adoptar</button>
-                                </form>
-                            @endif
-                        @endauth
-                    </div>
+                        <tbody>
+                            <tr>
+                                <th>Edad</th>
+                                <td>{{$mascota->edad}}</td>
+                            </tr>
+                            <tr>
+                                <th>Sexo</th>
+                                <td>{{$mascota->sexo}}</td>
+                            </tr>
+                            <tr>
+                                <th>Tamaño</th>
+                                <td>{{$mascota->tamaño}}</td>
+                            </tr>
+                            <tr>
+                                <th>Peso</th>
+                                <td>{{$mascota->peso}}</td>
+                            </tr>
+                            <tr>
+                                <th>Pelaje</th>
+                                <td>{{$mascota->pelo}}</td>
+                            </tr>
+                            <tr>
+                                <th>Energía</th>
+                                <td>{{$mascota->energía}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @auth
+                        @if($mascota->dueñx==$user->id)
+                            <a href="{{route('mascotas.edit',$mascota)}}" type="button" class="btn btn-secondary">Editar</a>
+                        @elseif ($user->categoria=='transitorio' or $user->categoria=='permanente')
+                            <form method="POST" action="{{route('solicitudes.store',$mascota)}}">
+                                @csrf
+                                <input name="mascota" type="number" value="{{$mascota->id}}" hidden>
+                                <input name="dueñx" type="number" value="{{$mascota->dueñx}}" hidden>
+                                <button type="submit" class="btn btn-secondary">Adoptar</button>
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             </div>
             @endforeach

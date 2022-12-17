@@ -139,6 +139,6 @@ class SolicitudesController extends Controller
         $solicitudAEliminar = Solicitud::find($id);
         $solicitudAEliminar->delete();
 
-        return view('mascotas.index');
+        return redirect(route('mascotas.index'));
     }
 }

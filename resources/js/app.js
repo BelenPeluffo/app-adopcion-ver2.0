@@ -6,6 +6,7 @@ window.Alpine = Alpine;
 
 Alpine.start();
 
+// PARA AUTH/REGISTER
 /*
 REGISTRO DE USER
 APARECER Y DESAPARECER los campos condicionales
@@ -59,3 +60,6 @@ $('#adoptar').click(function() {
         "<div class='form-group particular'><label class='etiqueta'>¿Cuáles son las condiciones de tu vivienda?</label><select name='tipoDeVivienda' id='vivienda' class='form-control'><option value='con patio'>Con patio</option><option value='sin patio'>Sin patio</option></select></div>"
     );
 })
+
+// PARA MASCOTA/INDEX
+$('#gatx-perrx').bootstrapSwitch();

@@ -14,7 +14,7 @@
     <style>
         /*para solucionar la superposición con el NAVBAR*/
         body {
-            padding-top: 60px;
+            padding-top: 7rem;
         }
     </style>
     <title>@yield('titulo')</title>

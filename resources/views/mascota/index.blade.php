@@ -23,16 +23,74 @@ Mascotas en Adopción
 @section('contenido')
 
     <!--FILTRO-->
-    <div class="container-fluid">
-        <div class="row mt-5">
-            <div class="col text-center">
-                <p>-> acá debería estar el filtro de búsqueda <-</p>
+    <div class="container my-4">
+        <div class="row text-left">
+            <div class="col">
+                <b>Especificá tu búsqueda:</b>
+            </div>
+        </div>
+        <div class="row text-center border rounded py-3">
+            <div class="col">
+                <!--para cuando pueda hacer el SWITCH
+                <div class="custom-control custom-switch">
+                    <label class="custom-control-label">Gatx</label>
+                    <input type="checkbox" class="custom-control-input" id="gatx-perrx">
+                    <label class="custom-control-label">Perrx</label>
+                </div>
+            -->
+                <label>Raza</label>
+                <select name="raza" class="form-control">
+                    <option>-</option>
+                    <option value="gatx">Gatx</option>
+                    <option value="perrx">Perrx</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Edad:</label>
+                <input type="number">
+            </div>
+            <div class="col">
+                <label>Sexo</label>
+                <select name="sexo" class="form-control">
+                    <option>-</option>
+                    <option value="macho">Macho</option>
+                    <option value="hembra">Hembra</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Tamaño</label>
+                <select name="tamanio" class="form-control">
+                    <option>-</option>
+                    <option value="pequeño">Pequeño</option>
+                    <option value="mediano">Mediano</option>
+                    <option value="grande">Grande</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Pelaje</label>
+                <select name="pelaje" class="form-control">
+                    <option>-</option>
+                    <option value="corto">Corto</option>
+                    <option value="largo">Largo</option>
+                </select>
+            </div>
+            <div class="col">
+                <label>Energía</label>
+                <select name="energia" class="form-control">
+                    <option>-</option>
+                    <option value="tranquilx">Tranquilx</option>
+                    <option value="activx">Activx</option>
+                    <option value="energeticx">Energéticx</option>
+                </select>
+            </div>
+            <div class="col d-flex align-items-center justify-content-center">
+                <button class="btn">Filtrar</button>
             </div>
         </div>
     </div>
 
     <!--MASCOTAS DISPONIBLES-->
-    <div class="container">
+    <div class="container my-5">
         <div class="row">
             @foreach ($mascotas as $mascota)
             <div class="col text-center">

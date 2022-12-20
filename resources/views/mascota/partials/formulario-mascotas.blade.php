@@ -184,6 +184,7 @@
                     <label>Foto</label>
                     <input type="file" class="form-control-file">
                 </div>
+                
                 <button type="submit" class="btn btn-primary">
                     @if(isset($mascota))
                         Actualizá su perfil
